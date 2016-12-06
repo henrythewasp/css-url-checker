@@ -10,41 +10,37 @@
 
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+	grunt.registerMultiTask('css_img_checker', 'Checks existance of image file URLs in CSS files', function() {
+		var parser = require('css-url-parser');
+		var path = require('path');
+		// var webroot = grunt.config('css_img_checker.options.webroot') || '';
+		var webroot = this.options().webroot || '';
 
-  grunt.registerMultiTask('css_img_checker', 'Checks existance of image file URLs in CSS files', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+		grunt.log.writeln('Webroot: ' + webroot);
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
 
-      // Handle options.
-      src += options.punctuation;
+		this.files.forEach(function(file) {
+			grunt.log.writeln('Processing: ' + file.src.length + ' files');
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
+			file.src.forEach(function(f) {
+				grunt.log.writeln('Checking ' + f);
+				var urls = parser(grunt.file.read(f));
+				urls.forEach(function(u) {
+					if (!u.toLowerCase().startsWith('http') && !u.toLowerCase().startsWith('data:')) {
+						u = path.join(webroot, u);
 
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
-    });
-  });
+						if (!grunt.file.exists(u)) {
+							grunt.log.error('Missing: ' + u);
+						}
+					}
+				});
+
+			});
+		});
+
+		if (this.errorCount) { return false; }
+
+		grunt.log.writeln('All CSS files checked OK');
+	});
 
 };

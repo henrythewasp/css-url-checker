@@ -29,24 +29,24 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    css_img_checker: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      }
-    },
+	css_img_checker: {
+		nofiles_ok: {
+			options: {
+				webroot: 'test/fixtures/'
+			},
+			files: {
+				src: []
+			}
+		},
+		nourls_ok: {
+			options: {
+				webroot: 'test/fixtures/'
+			},
+			files: {
+				src: ['test/fixtures/test1.css', 'test/fixtures/test2.css']
+			}
+		}
+	},
 
     // Unit tests.
     nodeunit: {
