@@ -33,7 +33,7 @@ exports.css_img_checker = {
     done();
   },
 
-
+/*
   nofiles_ok: function(test) {
     test.expect(1);
 
@@ -42,6 +42,7 @@ exports.css_img_checker = {
 		test.done();
 	});
   },
+*/
 
   nourls_ok: function(test) {
     test.expect(1);
