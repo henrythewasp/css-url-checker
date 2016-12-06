@@ -19,10 +19,17 @@ module.exports = function(grunt) {
 		var webroot = this.options().webroot || '';
 		var done = this.async();
 
+		var mylist = [
+			'list1', 'list2', 'list3'
+		];
+
+		var myfiles = [
+			'file1', 'file2', 'file3'
+		];
 		var urls = [ 
 			'http://gtconsult.inovem.com/inovem/sites/images/objects/small/petition.png',
 			'http://gtconsult.inovem.com/inovem/sites/images/objects/small/content.png',
-			'http://gtconsult.inovem.com/inovem/sites/images/objects/small/xdatastore.png',
+			'http://gtconsult.inovem.com/inovem/sites/images/objects/small/datastore.png',
 			'http://gtconsult.inovem.com/inovem/sites/images/objects/small/group.png',
 			'http://gtconsult.inovem.com/inovem/sites/images/objects/small/task.png',
 			'http://gtconsult.inovem.com/inovem/sites/images/objects/small/report.png'
@@ -30,28 +37,57 @@ module.exports = function(grunt) {
 
 		grunt.log.writeln('Webroot: ' + webroot);
 
-		// urls.forEach(function(u) {
-		async.forEach(urls, function(u, cb) {
-			http.verify({
-				url: u,
-				conditions: {
-					type: 'statusCode',
-				value: 200
-				}
-			}, function(err) {
-				// grunt.log.writeln('In http callback with err: ' + err);
-				if (err === null) {
-					grunt.log.writeln('URL ' + u + ' checked');
-					cb();
+		async.forEach(mylist, function(e, nextEntry) {
+			grunt.log.writeln('Checking files in listentry: ' + e);
+
+			async.forEach(myfiles, function(f, nextFile) {
+				grunt.log.writeln('Checking URLs in file: ' + f);
+
+				async.forEach(urls, function(u, nextURL) {
+				/*	
+					if (e === 'list3' && f === 'file2' && u === 'http://gtconsult.inovem.com/inovem/sites/images/objects/small/group.png') {
+						u = 'http://gt.inovem.com/bollox.gif';
+					}
+				*/
+					
+					http.verify({
+						url: u,
+						conditions: {
+							type: 'statusCode',
+						value: 200
+						}
+					}, function(err) {
+						if (err === null) {
+							grunt.log.writeln('URL ' + u + ' checked');
+							nextURL();
+						} else {
+							grunt.log.error('URL ' + u + ' is bad, err: ' + err);
+							nextURL(err);
+						}
+					});
+				}, function(error) {
+					grunt.log.writeln('URLS FINISHED! Error is: ' + error);
+					if (error === null) {
+						grunt.log.writeln('All URLS checked in file ' + f);
+						nextFile();
+					} else {
+						nextFile(error);
+					}
+				});
+			}, function(error) {
+				grunt.log.writeln('FILES FINISHED! Error is: ' + error);
+				if (error === null) {
+					grunt.log.writeln('All FILES checked');
+					nextEntry();
 				} else {
-					grunt.log.error('URL ' + u + ' is bad, err: ' + err);
-					cb(err);
+					nextEntry(error);
 				}
 			});
+
 		}, function(error) {
-			grunt.log.writeln('URLS FINISHED! Error is: ' + error);
+			grunt.log.writeln('LIST FINISHED! Error is: ' + error);
 			if (error === null) {
-				grunt.log.writeln('All URLs OK');
+				grunt.log.writeln('All ENTRIES OK');
 				done();
 			} else {
 				done(error);
