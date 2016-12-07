@@ -1,23 +1,23 @@
 {
-  "name": "grunt-css-img-checker",
+  "name": "grunt-css-url-checker",
   "description": "Checks existance of image file URLs in CSS files",
   "version": "0.1.0",
-  "homepage": "https://github.com/henrythewasp/css-img-checker",
+  "homepage": "https://github.com/henrythewasp/css-url-checker",
   "author": {
     "name": "Gary Taylor",
     "email": "henrythewasp@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/henrythewasp/css-img-checker.git"
+    "url": "git://github.com/henrythewasp/css-url-checker.git"
   },
   "bugs": {
-    "url": "https://github.com/henrythewasp/css-img-checker/issues"
+    "url": "https://github.com/henrythewasp/css-url-checker/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/henrythewasp/css-img-checker/blob/master/LICENSE-MIT"
+      "url": "https://github.com/henrythewasp/css-url-checker/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {

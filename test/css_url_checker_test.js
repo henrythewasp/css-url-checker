@@ -27,7 +27,7 @@ var grunt = require('grunt'),
     test.ifError(value)
 */
 
-exports.css_img_checker = {
+exports.css_url_checker = {
   setUp: function(done) {
     // setup here if necessary
     done();
@@ -36,7 +36,7 @@ exports.css_img_checker = {
   nofiles_ok: function(test) {
     test.expect(1);
 
-	exec('grunt css_img_checker:nofiles_ok', execOptions, function(error, stdout) {
+	exec('grunt css_url_checker:nofiles_ok', execOptions, function(error, stdout) {
 		test.equal(stdout.indexOf('OK') > -1, true, 'No missing URLs.');
 		test.done();
 	});
@@ -45,7 +45,7 @@ exports.css_img_checker = {
   nourls_ok: function(test) {
     test.expect(1);
 
-	exec('grunt css_img_checker:nourls_ok', execOptions, function(error, stdout) {
+	exec('grunt css_url_checker:nourls_ok', execOptions, function(error, stdout) {
 		test.equal(stdout.indexOf('OK') > -1, true, 'No missing URLs.');
 		test.done();
 	});

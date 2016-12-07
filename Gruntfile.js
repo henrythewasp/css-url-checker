@@ -1,6 +1,6 @@
 /*
- * grunt-css-img-checker
- * https://github.com/henrythewasp/css-img-checker
+ * grunt-css-url-checker
+ * https://github.com/henrythewasp/css-url-checker
  *
  * Copyright (c) 2016 Gary Taylor
  * Licensed under the MIT license.
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-	css_img_checker: {
+	css_url_checker: {
 		nofiles_ok: {
 			options: {
 				webroot: 'test/fixtures/'
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'css_img_checker', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'css_url_checker', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

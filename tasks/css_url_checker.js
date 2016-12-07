@@ -1,15 +1,13 @@
 /*
- * grunt-css-img-checker
- * https://github.com/henrythewasp/css-img-checker
+ * grunt-css-url-checker
+ * https://github.com/henrythewasp/css-url-checker
  *
  * Copyright (c) 2016 Gary Taylor
  * Licensed under the MIT license.
  */
 
 /*
- * TODO XXX - Add options to control what type of URL to check: web, file or both
- *          - Change name of this plugin to css-url-checker
- *          - Option to be verbose or just log errors
+ * TODO XXX - Change name of this plugin to css-url-checker
  *          - Option to add match filters for web and/or file URLs to control what gets checked
  *
  */
@@ -27,7 +25,7 @@ module.exports = function(grunt) {
 		filefilter	: ''
 	};
 
-	grunt.registerMultiTask('css_img_checker', 'Checks existance of image file URLs in CSS files', function() {
+	grunt.registerMultiTask('css_url_checker', 'Checks existance of URLs in CSS files and reports on any that are missing / not found', function() {
 		var parser = require('css-url-parser');
 		var http = require('http-verify');
 		var path = require('path');

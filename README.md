@@ -1,6 +1,6 @@
-# grunt-css-img-checker
+# grunt-css-url-checker
 
-> Checks existance of image file URLs in CSS files
+> Checks existance of URLs in CSS files
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -8,23 +8,23 @@ This plugin requires Grunt `~0.4.5`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-css-img-checker --save-dev
+npm install grunt-css-url-checker --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-css-img-checker');
+grunt.loadNpmTasks('grunt-css-url-checker');
 ```
 
-## The "css_img_checker" task
+## The "css_url_checker" task
 
 ### Overview
-In your project's Gruntfile, add a section named `css_img_checker` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `css_url_checker` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  css_img_checker: {
+  css_url_checker: {
     options: {
       // Task-specific options go here.
     },
@@ -56,7 +56,7 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  css_img_checker: {
+  css_url_checker: {
     options: {},
     files: {
       'dest/default_options': ['src/testing', 'src/123'],
@@ -70,7 +70,7 @@ In this example, custom options are used to do something else with whatever else
 
 ```js
 grunt.initConfig({
-  css_img_checker: {
+  css_url_checker: {
     options: {
       separator: ': ',
       punctuation: ' !!!',
