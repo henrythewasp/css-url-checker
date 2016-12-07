@@ -51,4 +51,31 @@ exports.css_url_checker = {
 	});
   },
 
+  urls_ok: function(test) {
+    test.expect(1);
+
+	exec('grunt css_url_checker:urls_ok', execOptions, function(error, stdout) {
+		test.equal(stdout.indexOf('OK') > -1, true, 'No missing URLs.');
+		test.done();
+	});
+  },
+
+  urls_ok_2: function(test) {
+    test.expect(1);
+
+	exec('grunt css_url_checker:urls_ok_2', execOptions, function(error, stdout) {
+		test.equal(stdout.indexOf('OK') > -1, true, 'No missing URLs.');
+		test.done();
+	});
+  },
+
+  urls_fail: function(test) {
+    test.expect(1);
+
+	exec('grunt css_url_checker:urls_fail', execOptions, function(error, stdout) {
+		test.equal(stdout.indexOf('OK') > -1, false, 'No missing URLs.');
+		test.done();
+	});
+  },
+
 };

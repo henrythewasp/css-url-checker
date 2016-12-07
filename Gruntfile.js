@@ -32,7 +32,9 @@ module.exports = function(grunt) {
 	css_url_checker: {
 		nofiles_ok: {
 			options: {
-				webroot: 'test/fixtures/'
+				fileroot: 'test/fixtures/',
+				checkweb: true,
+				checkfile: true
 			},
 			files: {
 				src: []
@@ -41,12 +43,49 @@ module.exports = function(grunt) {
 	
 		nourls_ok: {
 			options: {
-				webroot: 'test/fixtures/'
+				fileroot: 'test/fixtures/',
+				checkweb: true,
+				checkfile: true
+			},
+			files: {
+				src: ['test/fixtures/nourls.css']
+			}
+		},
+
+		urls_ok: {
+			options: {
+				fileroot: 'test/fixtures/',
+				checkweb: true,
+				checkfile: true
 			},
 			files: {
 				src: ['test/fixtures/test1.css', 'test/fixtures/test2.css']
 			}
-		}
+		},
+
+		urls_ok_2: {
+			options: {
+				fileroot: 'test/fixtures/',
+				checkweb: false,
+				checkfile: true
+			},
+			files: {
+				src: ['test/fixtures/test1.css', 'test/fixtures/test2.css', 'test/fixtures/test3.css']
+			}
+		},
+
+		urls_fail: {
+			options: {
+				fileroot: 'test/fixtures/',
+				checkweb: true,
+				checkfile: false
+			},
+			files: {
+				src: ['test/fixtures/test3.css']
+			}
+		},
+
+
 	},
 
     // Unit tests.

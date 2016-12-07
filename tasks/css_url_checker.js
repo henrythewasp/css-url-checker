@@ -7,8 +7,7 @@
  */
 
 /*
- * TODO XXX - Change name of this plugin to css-url-checker
- *          - Option to add match filters for web and/or file URLs to control what gets checked
+ * TODO XXX - Option to add match filters for web and/or file URLs to control what gets checked
  *
  */
 
@@ -17,12 +16,14 @@
 module.exports = function(grunt) {
 
 	var optionsDefaults = {
-		webroot		: '',
+		fileroot	: '',
 		checkweb	: true,
 		checkfile	: true,
-		verbose		: false,
-		webfilter	: '',
-		filefilter	: ''
+		verbose		: true,
+		webmatch	: '',
+		webignore	: '',
+		filematch	: '',
+		fileignore	: ''
 	};
 
 	grunt.registerMultiTask('css_url_checker', 'Checks existance of URLs in CSS files and reports on any that are missing / not found', function() {
@@ -53,28 +54,42 @@ module.exports = function(grunt) {
 				async.forEach(urls, function(u, nextURL) {
 					var err = null;
 
-					if (options.checkweb && u.toLowerCase().startsWith('http')) {
-						http.verify({
-							url: u,
-							conditions: {
-								type: 'statusCode',
-								value: 200
-							}
-						}, function(err) {
-							if (err !== null) {
+					writeLog('Next URL: ' + u);
+
+					if (u.toLowerCase().startsWith('http')) {
+						if (options.checkweb) {
+							writeLog('Checking web URL: ' + u);
+
+							http.verify({
+								url: u,
+								conditions: {
+									type: 'statusCode',
+									value: 200
+								}
+							}, function(err) {
+								if (err !== null) {
+									grunt.log.error('Bad URL [' + u + '] in file [' + f + '] Error: ' + err);
+								}
+								nextURL(err);
+							});
+						} else {
+							nextURL();
+						}
+
+					} else if (!u.toLowerCase().startsWith('data:')) {
+						if (options.checkfile) {
+							u = u.startsWith('/') ? u : path.join(options.fileroot, u);
+							writeLog('Checking file URL: ' + u);
+
+							if (!grunt.file.exists(u)) {
+								err = new Error('Missing file!');
 								grunt.log.error('Bad URL [' + u + '] in file [' + f + '] Error: ' + err);
 							}
-							nextURL(err);
-						});
-
-					} else if (options.checkfile && !u.toLowerCase().startsWith('data:')) {
-						u = u.startsWith('/') ? u : path.join(options.webroot, u);
-
-						if (!grunt.file.exists(u)) {
-							err = new Error('Missing file!');
-							grunt.log.error('Bad URL [' + u + '] in file [' + f + '] Error: ' + err);
 						}
 						nextURL(err);
+
+					} else {
+						nextURL();
 					}
 
 				}, function(err) {
@@ -86,7 +101,7 @@ module.exports = function(grunt) {
 			});
 
 		}, function(err) {
-			grunt.log.writeln('All files checked: ' + (err === null ? 'OK' : err));
+			grunt.log.writeln('All files checked: ' + (err === null ? 'OK' : 'Error = ' + err));
 			done(err);
 		});
 
