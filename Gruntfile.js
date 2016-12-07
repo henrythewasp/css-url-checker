@@ -30,7 +30,6 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
 	css_img_checker: {
-	/*
 		nofiles_ok: {
 			options: {
 				webroot: 'test/fixtures/'
@@ -39,7 +38,7 @@ module.exports = function(grunt) {
 				src: []
 			}
 		},
-	*/
+	
 		nourls_ok: {
 			options: {
 				webroot: 'test/fixtures/'
