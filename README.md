@@ -11,10 +11,11 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 npm install grunt-css-url-checker --save-dev
 ```
 
-You'll also need to install http-verify with this command:
+You may also need to install http-verify and path npm packages with these commands:
 
 ```shell
 npm install http-verify --save-dev
+npm install path --save-dev
 ```
 
 Once the plugin and dependency have been installed, it can be enabled inside your Gruntfile with this line of JavaScript:
