@@ -26,10 +26,13 @@ In your project's Gruntfile, add a section named `css_url_checker` to the data o
 grunt.initConfig({
   css_url_checker: {
     options: {
-      // Task-specific options go here.
+      fileroot: 'my/webroot/folder/',
+      checkweb: true,
+      checkfile: true,
+      verbose: true
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
+    files: {
+      src: ['src/css/file1.css','src/css/file2.css'] 
     },
   },
 });
@@ -37,50 +40,46 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.fileroot
 Type: `String`
-Default value: `',  '`
+Default value: `''`
 
-A string value that is used to do something with whatever.
+The file root that is prepended onto a relative file path before checking the file exists.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+#### options.checkweb
+Type: `Boolean`
+Default value: `true`
 
-A string value that is used to do something else with whatever else.
+Boolean flag to control checking of web URLs (ie. http / https).
+
+#### options.checkfile
+Type: `Boolean`
+Default value: `true`
+
+Boolean flag to control checking of file URLs.
+
+#### options.verbose
+Type: `Boolean`
+Default value: `true`
+
+Boolean flag to control how much output is generated.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, the default options are used to check all web and file URLs.  All file URLs are expected to be absolute.
 
 ```js
 grunt.initConfig({
   css_url_checker: {
     options: {},
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      src: ['src/css/file1.css', 'src/css/file2.css'],
     },
   },
 });
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  css_url_checker: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
