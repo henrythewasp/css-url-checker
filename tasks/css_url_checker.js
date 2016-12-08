@@ -78,7 +78,7 @@ module.exports = function(grunt) {
 
 					} else if (!u.toLowerCase().startsWith('data:')) {
 						if (options.checkfile) {
-							u = u.startsWith('/') ? u : path.join(options.fileroot, u);
+							u = path.join(options.fileroot, u);
 							writeLog('Checking file URL: ' + u);
 
 							if (!grunt.file.exists(u)) {
