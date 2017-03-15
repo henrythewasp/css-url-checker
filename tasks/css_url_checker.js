@@ -58,6 +58,7 @@ module.exports = function(grunt) {
 
 					if (u.toLowerCase().startsWith('http')) {
 						if (options.checkweb) {
+							u = u.split('?')[0];
 							writeLog('Checking web URL: ' + u);
 
 							http.verify({
@@ -68,7 +69,7 @@ module.exports = function(grunt) {
 								}
 							}, function(err) {
 								if (err !== null) {
-									grunt.log.error('Bad URL [' + u + '] in file [' + f + '] Error: ' + err);
+									grunt.log.error('Bad URL(1) [' + u + '] in file [' + f + '] Error: ' + err);
 								}
 								nextURL(err);
 							});
@@ -78,12 +79,13 @@ module.exports = function(grunt) {
 
 					} else if (!u.toLowerCase().startsWith('data:')) {
 						if (options.checkfile) {
+							u = u.split('?')[0];
 							u = path.join(options.fileroot, u);
 							writeLog('Checking file URL: ' + u);
 
 							if (!grunt.file.exists(u)) {
 								err = new Error('Missing file!');
-								grunt.log.error('Bad URL [' + u + '] in file [' + f + '] Error: ' + err);
+								grunt.log.error('Bad URL(2) [' + u + '] in file [' + f + '] Error: ' + err);
 							}
 						}
 						nextURL(err);
